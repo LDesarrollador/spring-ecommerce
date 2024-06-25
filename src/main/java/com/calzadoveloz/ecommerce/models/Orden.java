@@ -2,24 +2,53 @@ package com.calzadoveloz.ecommerce.models;
 
 import java.util.Date;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+@Entity
+@Table(name = "Ordenes")
 public class Orden {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer Id;
 	private String Numero;
 	private Date fechaCreacion;
 	private Date fechaRecibida;
 	private double total;
+	@ManyToOne
+	private Usuario usuario;
+	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	//relacion con detalle orden
+	@OneToOne(mappedBy = "orden")
+	private DetalleOrden detalleOrden;
 	
 	//constructor con campos
-	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total) {
+	
+	public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, double total, Usuario usuario) {
 		super();
 		this.Id = id;
 		this.Numero = numero;
 		this.fechaCreacion = fechaCreacion;
 		this.fechaRecibida = fechaRecibida;
 		this.total = total;
+		this.usuario = usuario;
 	}
-	
-	//contructor vacio 
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+//contructor vacio 
 public Orden() {
 	// TODO Auto-generated constructor stub
 }
@@ -70,6 +99,14 @@ public double getTotal() {
 
 public void setTotal(double total) {
 	this.total = total;
+}
+
+public DetalleOrden getDetalleOrden() {
+	return detalleOrden;
+}
+
+public void setDetalleOrden(DetalleOrden detalleOrden) {
+	this.detalleOrden = detalleOrden;
 }
 
 

@@ -1,8 +1,19 @@
 package com.calzadoveloz.ecommerce.models;
 
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+@Entity
+@Table(name = "Productos")
 public class Producto {
 	//definimos variables
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)	
 	private Integer Id;
 	private String Nombre;
 	private String Descripcion;
@@ -10,6 +21,13 @@ public class Producto {
 	private double precio;
 	private int cantidad;
 	
+	//nuevo atributo de tipo Usuario para relacionar con producto
+	
+	//mapeo con jpa de muchos productos a un usuario
+	@ManyToOne
+	private Usuario usuario;
+	
+
 	//constructor vacio
 	public Producto() {
 		// TODO Auto-generated constructor stub
@@ -17,16 +35,7 @@ public class Producto {
 	
 	//constructor con parametros
 	
-	public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad) {
-		super();
-		this.Id = id;
-		this.Nombre = nombre;
-		this.Descripcion = descripcion;
-		this.imagen = imagen;
-		this.precio = precio;
-		this.cantidad = cantidad;
-	}
-
+   //lo elimine para luego crear con tipo usuario
 
 //generamos metodo toString para que retorne los campos en un solo  String
 
@@ -34,6 +43,18 @@ public class Producto {
 	public String toString() {
 		return "Producto [Id=" + Id + ", Nombre=" + Nombre + ", Descripcion=" + Descripcion + ", imagen=" + imagen
 				+ ", precio=" + precio + ", cantidad=" + cantidad + "]";
+	}
+//constructor incluyendo usuario
+	public Producto(Integer id, String nombre, String descripcion, String imagen, double precio, int cantidad,
+			Usuario usuario) {
+		super();
+		this.Id = id;
+		this.Nombre = nombre;
+		this.Descripcion = descripcion;
+		this.imagen = imagen;
+		this.precio = precio;
+		this.cantidad = cantidad;
+		this.usuario = usuario;
 	}
 
 	//getters and setter
@@ -73,6 +94,18 @@ public class Producto {
 	public void setCantidad(int cantidad) {
 		this.cantidad = cantidad;
 	}
+	
+	///generate getter  y setters  para Usuario
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+	
+	
 	
 	
 
